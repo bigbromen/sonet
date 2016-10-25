@@ -2,8 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>HTML5</title>
+    <title>SOnET</title>
     <link href='/temp/css/style.css' rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
   <body>
     <header>
@@ -15,29 +16,79 @@
     <div id="left_side">
       <div id="profile_img">
         <img src="<?php echo $single_user_info['avatar']?>">
-        <a href=""><div class="btn_fre_mes">Написать сообщение</div></a>
-        <a href=""><div class="btn_fre_mes">Добавить в друзья</div></a>
+        <?php if($single_user_info['id'] != $user['id']):?>
+          <a href=""><div class="btn_fre_mes">Написать сообщение</div></a>
+          <?php if($is_my_friend != true):?>
+            <a href="/add_freinds/<?php echo $single_user_info['id'];?>">
+              <div class="btn_fre_mes">Добавить в друзья</div>
+            </a>
+          <?php else:?>
+            <div class="btn_fre_mes">Ваш друг</div>
+          <?php endif;?>
+        <?php endif;?>
+
       </div>
       <div id="profile_menu">
         <ul>
-          <li><a href="">Моя страница</a></li>
-          <li><a href="">Мои друзья</a></li>
+          <li><a href="/profile/<?php echo $user['id'];?>">Моя страница</a></li>
+          <li><a href="/friends/<?php echo $user['id'];?>">Мои друзья</a></li>
           <li><a href="">Мои сообщения</a></li>
-          <li><a href="">Редактировать профиль</a></li>
+          <li><a href="/profile/edit">Редактировать профиль</a></li>
         </ul>
       </div>
     </div>
     <div id="right_side">
       <div id="about">
         <h2 id='user_name' class="about_user"><?php echo $single_user_info['firstname']." ".$single_user_info['secondname'];?></h2>
-        <p class="about_user">Дата рождения: </p>
-        <p class="about_user">Пол: </p>
-        <p class="about_user">Страна: </p>
-        <p class="about_user">Город: </p>
-        <p class="about_user">О себе: </p>
+        <p class="about_user">Дата рождения: <?php
+          if($single_user_info['birthday'] <> '2000-10-10'){
+            echo $single_user_info['birthday'];
+          }
+         ?></p>
+        <p class="about_user">Пол:
+        <?php
+          if($single_user_info['sex'] == 1)
+          {echo "Мужской";}
+          elseif($single_user_info['sex'] == 2)
+          {echo "Женский";}
+        ?>
+      </p>
+        <p class="about_user">Страна: <?php echo $single_user_info['country'];?></p>
+        <p class="about_user">Город: <?php echo $single_user_info['city'];?></p>
+        <p class="about_user">О себе: <?php echo $single_user_info['about_me'];?></p>
       </div>
+      <hr>
       <div id="user_friend">
+
         <h2>Друзья</h2>
+        <?php if(!empty($user_friends)):?>
+          <?php foreach ($user_friends as $user_friend):?>
+              <div class="ind_for_friend">
+                <div class="ind_img_friend">
+                  <img src="<?php echo $user_friend['avatar']; ?>">
+                </div>
+                <div class="ind_name_friend">
+                  <a href="/profile/<?php echo $user_friend['id'];?>">
+                    <?php echo  $user_friend['firstname'].' '; ?><?php echo $user_friend['secondname']; ?>
+                  </a>
+                </div>
+              </div>
+          <?php endforeach;?>
+        <?php else:?>
+        <h2>Нет друзей</h2>
+        <?php endif; ?>
+      </div>
+      <div id="user_notice">
+        <h2>Уведомления</h2>
+        <?php if(!empty($notices)):?>
+          <?php foreach ($notices as $notice):?>
+              <p><?php echo $notice['text'];?>
+               <a href="/profile/<?php echo $notice['id'];?>"><?php echo $notice['from'];?></a>
+                  в <?php echo $notice['date'];?></p>
+          <?php endforeach;?>
+        <?php else:?>
+        <h2>Нет Уведомлений</h2>
+        <?php endif; ?>
       </div>
     </div>
     <div class='clear'></div>

@@ -4,13 +4,16 @@
   class UserController{
 
     public function Registration(){
+      if(User::check_logged() != false){
+        header('Location: /profile/'.User::check_logged()['id']);
+      }
       $submit = "";
       $email = "";
       $firstname = "";
       $secondname = "";
       $password = "";
 
-      if(isset($submit) and isset($_POST['submit'])
+      if(isset($_POST['submit'])
       and isset($_POST['email'])
       and isset($_POST['firstname'])
       and isset($_POST['secondname'])
@@ -45,6 +48,9 @@
     }
 
     public function Auth(){
+      if(User::check_logged() != false){
+        header('Location: /profile/'.User::check_logged()['id']);
+      }
       if(isset($_POST['submit'])
       and isset($_POST['email'])
       and isset($_POST['password'])
@@ -59,8 +65,9 @@
         }
 
         if($errors == false){
-          User::sign_in($email,$password);
-          header('Location: /');
+          $user_id = User::sign_in($email,$password);
+          $id = $user_id['id'];
+          header("Location: /profile/$id");
         }
       }
 
@@ -75,12 +82,66 @@
     }
 
     public function Show_profile($params){
-      User::check_logged();
+      $user = User::check_logged();
       $single_user_info = User::show_profile($params[0]);
-
+      $user_friends = User::show_friends($params[0]);
+      $is_my_friend;
+      if(User::is_my_friend($params[0])){
+        $is_my_friend = true;
+      }
+      else{
+        $is_my_friend = false;
+      }
+      $notices = User::get_notice($params[0]);
       require_once ROOT.'/views/profile/index.php';
       return true;
     }
 
+    public function Edit_profile(){
+      $user = User::check_logged();
 
+      if(isset($_POST['submit'])){
+        $firstname = $_POST['firstname'];
+        $secondname = $_POST['secondname'];
+        $sex = $_POST['sex'];
+        $city = $_POST['city'];
+        $country = $_POST['country'];
+        $birthday = $_POST['birthday'];
+        $about_me = $_POST['about_me'];
+        $avatar = $_POST['avatar'];
+        $id = $user['id'];
+        if(User::edit_profile($firstname, $secondname, $sex, $city, $country, $birthday, $about_me, $id, $avatar)){
+          header("Location:/profile/$id");
+        }
+        else{
+          header("Location:/profile/$id");
+        }
+
+
+      }
+      require_once ROOT.'/views/profile/edit.php';
+      return true;
+    }
+
+    public function Add_to_freinds($params){
+      $user = User::check_logged();
+      User::add_to_freinds($params[0]);
+      header("Location:/profile/$params[0]");
+      return true;
+    }
+
+    public function Show_friends($params){
+      $user = User::check_logged();
+      $user_friends = User::show_friends($params[0]);
+      require_once ROOT.'/views/profile/friends.php';
+      return true;
+    }
+
+    public function redir_to_iam(){
+      $user = User::check_logged();
+      $id = $user['id'];
+      if(isset($id)){
+        header("Location:/profile/$id");
+      }
+    }
   }

@@ -14,7 +14,7 @@
       <img src="/temp/img/preview.png">
     </div>
     <div id="form_block">
-      <h1>Выполните вход <BR>в Sonet</h1>
+      <h1>Выполните вход <BR>в Sonet или <a href="registration">зарегистрируйтесь</a></h1>
       <form action="" method="post">
         <input class="input_field" type="text" name="email" placeholder="Е-mail"><br>
         <input class="input_field" type="password" name="password" placeholder="Пароль"><br>
