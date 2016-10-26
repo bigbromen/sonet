@@ -24,27 +24,27 @@
       </div>
     </div>
     <div id="right_side">
-      <h1>Друзья</h1>
-      <div id="section_show_friends">
-        <?php if(!empty($user_friends)):?>
-          <?php foreach ($user_friends as $user_friend):?>
-              <div class="block_for_friend">
-                <div class="img_friend">
-                  <img src="<?php echo $user_friend['avatar']; ?>">
+      <h1>Ваши диалоги</h1><hr>
+      <?php foreach ($friends as $friend ): ?>
+          <div class="block_dialog">
+            <p class="date_last_msg"><?php echo $friend['last_msg']['date'].' '; ?></p>
+            <div class="about_dialog">
+              <a href="/message/<?php echo $friend['user']['id']; ?>">
+                <div style='width:50px;'>
+                  <img src="<?php echo $friend['user']['avatar'].' '; ?>" style="width:100%;">
                 </div>
-                <div class="name_friend">
-                  <a href="/profile/<?php echo $user_friend['id'];?>">
-                    <?php echo $user_friend['firstname'].' '; ?><?php echo $user_friend['secondname']; ?>
-                  </a>
-                </div>
-              </div>
-          <?php endforeach;?>
-        <?php else:?>
-        <h2>Нет друзей</h2>
-        <?php endif; ?>
-
-      </div>
-    </div>
+                <?php echo $friend['user']['firstname'].' '; ?>
+                <?php echo $friend['user']['secondname']; ?>
+              </a>
+            </div>
+            <a href="/message/<?php echo $friend['user']['id']; ?>">
+              <div class="last_msg">
+              <?php echo substr($friend['last_msg']['text'],0, 120); ?>
+            </div>
+          </a>
+          <div class='clear'></div>
+        </div><hr>
+      <?php endforeach; ?>
     <div class='clear'></div>
   </body>
 </html>

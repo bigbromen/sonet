@@ -17,7 +17,7 @@
       <div id="profile_img">
         <img src="<?php echo $single_user_info['avatar']?>">
         <?php if($single_user_info['id'] != $user['id']):?>
-          <a href=""><div class="btn_fre_mes">Написать сообщение</div></a>
+          <a href="/message/<?php echo $single_user_info['id'];?>"><div class="btn_fre_mes">Написать сообщение</div></a>
           <?php if($is_my_friend != true):?>
             <a href="/add_freinds/<?php echo $single_user_info['id'];?>">
               <div class="btn_fre_mes">Добавить в друзья</div>
@@ -32,7 +32,7 @@
         <ul>
           <li><a href="/profile/<?php echo $user['id'];?>">Моя страница</a></li>
           <li><a href="/friends/<?php echo $user['id'];?>">Мои друзья</a></li>
-          <li><a href="">Мои сообщения</a></li>
+          <li><a href="/messages">Мои сообщения</a></li>
           <li><a href="/profile/edit">Редактировать профиль</a></li>
         </ul>
       </div>

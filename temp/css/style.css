@@ -222,3 +222,88 @@ ind_  color: #0f3c6b;
   margin-top: 30px;
   color:#0f3c6b;
 }
+
+/*message*/
+#block_msg_to_me p{
+  text-align: right;
+}
+
+.block_text_iam{
+  width: 500px;
+  float: left;
+}
+
+#block_scroll{
+  overflow-Y: scroll;
+  height: 550px;
+  padding: 10px;
+}
+
+.clear{
+  clear: both;
+}
+
+.avatar_mes_iam{
+  width: 50px;
+  float: right;
+}
+
+.avatar_mes_iam img{
+  width: 100%;
+}
+
+.avatar_mes_to_me{
+  width: 50px;
+  float: left;
+}
+
+.avatar_mes_to_me img{
+  width: 100%;
+}
+
+.block_text_to_me{
+  width: 500px;
+  float: right;
+}
+.msg_date_iam{
+  text-align: center !important;
+  margin: 0;
+  font-size: 11px;
+  color: grey;
+  padding-left: 70px;
+}
+
+.msg_date_to_me{
+  text-align: center !important;
+  margin: 0;
+  font-size: 11px;
+  color: grey;
+  padding-right: 70px;
+}
+
+/*messages*/
+.block_dialog{
+
+}
+
+.block_dialog a{
+  text-decoration: none;
+  color: #0f3c6b;
+}
+.about_dialog{
+  width: 20%;
+  float: left;
+}
+.last_msg{
+  width: 79%;
+  float: left;
+}
+
+.date_last_msg{
+  text-align: center !important;
+  margin: 0;
+  font-size: 11px;
+  color: grey;
+  padding-right: 70px;
+  padding-bottom: 20px;
+}
