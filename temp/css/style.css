@@ -307,3 +307,23 @@ ind_  color: #0f3c6b;
   padding-right: 70px;
   padding-bottom: 20px;
 }
+#user_friend h2 a{
+  text-decoration: none;
+  color:#0f3c6b;
+}
+#user_friend a{
+color: #595a69;
+font-weight: 600;
+text-decoration: darkred;
+font-size: 14px;
+}
+#user_friend h2 a{
+  text-decoration: none;
+  color:#0f3c6b;
+  font-size:  24px;
+}
+.qwerty{
+  font-size: 20px;
+  color: #4c6bab;
+  font-weight: 600;
+}

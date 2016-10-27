@@ -1,5 +1,7 @@
 <?php
   return array(
+    "ajax_load_msg"=>"message/ajax_load_msg",
+    "ajax_send_msg"=>"message/ajax_send_msg",
     "messages"=>"message/Show_messages",
     "/message/([0-9]+)"=>"/message/index/$1",
     "/profile/([0-9]+)"=>"user/show_profile/$1",
@@ -8,6 +10,6 @@
     "registration"=>"user/registration",
     "authentication"=>"user/auth",
     "sign_out"=>"user/sign_out",
-    "profile/edit"=>"user/edit_profile",    
+    "profile/edit"=>"user/edit_profile",
     "/"=>"user/redir_to_iam/"
   );

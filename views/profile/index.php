@@ -60,8 +60,9 @@
       <hr>
       <div id="user_friend">
 
-        <h2>Друзья</h2>
+        <h2><a href="/friends/<?php echo $single_user_info['id'];?>">Друзья</a></h2>
         <?php if(!empty($user_friends)):?>
+          <?php $i=0;?>
           <?php foreach ($user_friends as $user_friend):?>
               <div class="ind_for_friend">
                 <div class="ind_img_friend">
@@ -73,6 +74,9 @@
                   </a>
                 </div>
               </div>
+              <?php $i++;
+                if($i==4) break;
+              ?>
           <?php endforeach;?>
         <?php else:?>
         <h2>Нет друзей</h2>
@@ -81,10 +85,14 @@
       <div id="user_notice">
         <h2>Уведомления</h2>
         <?php if(!empty($notices)):?>
+          <?php $i=0;?>
           <?php foreach ($notices as $notice):?>
-              <p><?php echo $notice['text'];?>
-               <a href="/profile/<?php echo $notice['id'];?>"><?php echo $notice['from'];?></a>
+              <p><a href="/profile/<?php echo $notice['id'];?>"><?php echo $notice['from'];?></a>
+              <?php echo $notice['text'];?>
                   в <?php echo $notice['date'];?></p>
+            <?php $i++;
+              if($i==5) break;
+            ?>
           <?php endforeach;?>
         <?php else:?>
         <h2>Нет Уведомлений</h2>

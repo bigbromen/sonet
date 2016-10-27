@@ -2,7 +2,7 @@
   include_once ROOT.'/models/User.php';
 
   class UserController{
-
+    
     public function Registration(){
       if(User::check_logged() != false){
         header('Location: /profile/'.User::check_logged()['id']);

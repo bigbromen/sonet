@@ -21,7 +21,7 @@
 
     public static function check_email_exist($email){
       $db = Db::getConnection();
-
+      $db->query("SET NAMES 'utf8'");
       $result = $db->query("SELECT * FROM users WHERE email='$email'");
       $count_row = $result->num_rows;
       if($count_row > 0){
@@ -34,6 +34,7 @@
 
     public static function add_user_to_db($email,$firstname,$secondname,$password,$avatar){
       $db = Db::getConnection();
+      $db->query("SET NAMES 'utf8'");
       $empty_arr_to_friends = array();
       $empty_arr_to_notes = array();
       $ser_arr_to_friends = serialize($empty_arr_to_friends);
@@ -45,6 +46,7 @@
 
     public static function check_user_to_auth($email,$password){
       $db = Db::getConnection();
+      $db->query("SET NAMES 'utf8'");
       $result = $db->query("SELECT * FROM users WHERE email='$email' AND password='$password'");
       if($result->num_rows == 1){
         return true;
@@ -56,6 +58,7 @@
 
     public static function sign_in($email, $password){
       $db = Db::getConnection();
+      $db->query("SET NAMES 'utf8'");
       function generateRandomString($length = 25) {
         return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
       }
@@ -76,13 +79,13 @@
         $hashCookie = $_COOKIE['hash'];
         $hashEmail = $_COOKIE['email'];
         $db = Db::getConnection();
-
+        $db->query("SET NAMES 'utf8'");
         $result = $db->query("SELECT * FROM users WHERE hash='$hashCookie' and email='$hashEmail'");
         $user_profile = $result->fetch_array(MYSQLI_ASSOC);
         return $user_profile;
       }
       else{
-        if($_SERVER['REQUEST_URI'] != '/authentication'){
+        if($_SERVER['REQUEST_URI'] != '/authentication' and $_SERVER['REQUEST_URI'] != '/registration'){
           header('Location: /authentication');
         }
       }
@@ -90,7 +93,7 @@
 
     public static function show_profile($id){
       $db = Db::getConnection();
-
+      $db->query("SET NAMES 'utf8'");
       $result = $db->query("SELECT * FROM users WHERE id='$id'");
       $single_user_info = $result->fetch_array(MYSQLI_ASSOC);
       if($single_user_info == NULL){
@@ -104,7 +107,7 @@
     public static function sign_out(){
       $hashCookie = $_COOKIE['hash'];
       $db = Db::getConnection();
-
+      $db->query("SET NAMES 'utf8'");
       $result = $db->query("UPDATE users SET hash='false' WHERE hash='$hashCookie'");
       if($db->affected_rows == 1){
         setcookie("hash", "", time()-60*60*24*30);
@@ -115,7 +118,7 @@
 
     public static function edit_profile($firstname, $secondname, $sex, $city, $country, $birthday, $about_me, $id, $avatar){
       $db = Db::getConnection();
-
+      $db->query("SET NAMES 'utf8'");
       $db->query("UPDATE users SET
         avatar='$avatar',
         firstname='$firstname',
@@ -136,7 +139,7 @@
       $hashCookie = $_COOKIE['hash'];
       $EmailCookie = $_COOKIE['email'];
       $db = Db::getConnection();
-
+      $db->query("SET NAMES 'utf8'");
       $res_query = $db->query("SELECT * FROM users WHERE id='$id_fr'");
       if($res_query->num_rows == 1){
         $res = $db->query("SELECT * FROM users WHERE hash='$hashCookie' and email='$EmailCookie'");
@@ -150,10 +153,10 @@
             $friends_arr = $res_query->fetch_array(MYSQLI_ASSOC);
             $unser_frends_notes = unserialize($friends_arr['notice']);
             $notice = array(
-              'from'=>$EmailCookie,
+              'from'=>$user_arr['firstname'].' '.$user_arr['secondname'],
               'id'=> $user_arr['id'],
               'date'=> date("Y-m-d H:i:s"),
-              'text'=>'Вас добавил в друзья пользователь'
+              'text'=>' добавил в друзья пользователь'
             );
             array_push($unser_frends_notes, $notice);
             $ser_frends_notes = serialize($unser_frends_notes);
@@ -164,9 +167,34 @@
       return true;
     }
 
+    public static function add_notice_msg($id_fr){
+      //Сделать еще проверку существует ли такой id пользователя
+      $hashCookie = $_COOKIE['hash'];
+      $EmailCookie = $_COOKIE['email'];
+      $db = Db::getConnection();
+      $db->query("SET NAMES 'utf8'");
+      $res_query = $db->query("SELECT * FROM users WHERE id='$id_fr'");
+      $res = $db->query("SELECT * FROM users WHERE hash='$hashCookie' and email='$EmailCookie'");
+      $user_arr = $res->fetch_array(MYSQLI_ASSOC);
+      if($res_query->num_rows == 1){
+          $friends_arr = $res_query->fetch_array(MYSQLI_ASSOC);
+          $unser_frends_notes = unserialize($friends_arr['notice']);
+          $notice = array(
+              'from'=>$user_arr['firstname'].' '.$user_arr['secondname'],
+              'id'=> $user_arr['id'],
+              'date'=> date("Y-m-d H:i:s"),
+              'text'=>' прислал сообщение '
+            );
+          array_push($unser_frends_notes, $notice);
+          $ser_frends_notes = serialize($unser_frends_notes);
+          $db->query("UPDATE users SET notice='$ser_frends_notes' WHERE id='$id_fr'");
+      }
+      return true;
+    }
+
     public static function show_friends($id){
       $db = Db::getConnection();
-
+      $db->query("SET NAMES 'utf8'");
       $result = $db->query("SELECT * FROM users WHERE id='$id'");
       $user_arr = $result->fetch_array(MYSQLI_ASSOC);
       $friends = unserialize($user_arr['friends']);
@@ -189,7 +217,7 @@
       $db = Db::getConnection();
       $hashCookie = $_COOKIE['hash'];
       $EmailCookie = $_COOKIE['email'];
-
+      $db->query("SET NAMES 'utf8'");
       $res = $db->query("SELECT friends FROM users WHERE hash='$hashCookie' and email='$EmailCookie'");
       $user_arr = $res->fetch_array(MYSQLI_ASSOC);
       $friends = unserialize($user_arr['friends']);
@@ -203,7 +231,7 @@
 
     public static function get_notice($id){
       $db = Db::getConnection();
-
+      $db->query("SET NAMES 'utf8'");
       $result = $db->query("SELECT * FROM users WHERE id='$id'");
       $user_arr = $result->fetch_array(MYSQLI_ASSOC);
       $notice = unserialize($user_arr['notice']);

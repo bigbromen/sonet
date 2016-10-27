@@ -33,10 +33,11 @@
                   <img src="<?php echo $user_friend['avatar']; ?>">
                 </div>
                 <div class="name_friend">
-                  <a href="/profile/<?php echo $user_friend['id'];?>">
+                  <a href="/profile/<?php echo $user_friend['id'];?>" class="qwerty">
                     <?php echo $user_friend['firstname'].' '; ?><?php echo $user_friend['secondname']; ?>
                   </a>
                 </div>
+                <a href="/message/<?php echo $user_friend['id'];?>">Написать писюльку</a>
               </div>
           <?php endforeach;?>
         <?php else:?>
