@@ -4,10 +4,11 @@ body{
 }
 
 header{
-  width: 100%;
+  width: 960px;
   background-color: #567ca4;
   height: 50px;
   display: inline-block;
+  position: fixed;
 }
 
 #block_1{
@@ -28,8 +29,9 @@ header{
 
 #form_block{
   margin-top: 10px;
-  width: 400px;
+  width: 500px;
   float: left;
+  margin-left: 120px;
 }
 
 #form_block h1{
@@ -50,7 +52,7 @@ header{
 }
 
 #form_block form .input_field{
-  width: 385px;
+  width: 485px;
   height: 30px;
   color: grey;
 }
@@ -72,14 +74,18 @@ header{
 
 /*profile.php*/
 #left_side{
-  width: 250px;
+  width: 200px;
+  margin-left: 35px;
   float: left;
+  margin-top: 50px;
+
 }
 
 #right_side{
-  margin-left: 110px;
-  width: 600px;
+  margin-left: 35px;
+  width: 450px;
   float: left;
+    margin-top: 25px;
 }
 
 .clear{
@@ -87,7 +93,7 @@ header{
 }
 
 #profile_img{
-  width: 250px;
+  width: 200px;
 }
 
 #profile_img img{
@@ -95,7 +101,8 @@ header{
 }
 .btn_fre_mes{
   text-align:center;
-  width: 200px;
+  width: 150px;
+  font-size: 12px;
   margin-left: 25px;
   height: 30px;
   background-color:#4e9340;
@@ -114,8 +121,9 @@ header{
 }
 
 #profile_menu{
-  margin-top: 50px;
-  height: 250px;
+  width: 200px;
+  position: fixed;
+  margin-top: 30px;
 }
 
 #profile_menu ul{
@@ -128,7 +136,6 @@ header{
 #profile_menu ul li{
   margin-top: 10px;
   padding-left: 0px;
-  height: 20px;
   background-color: #567ca4;
   list-style-type: none;
   display: block;
@@ -186,14 +193,14 @@ header{
 }
 
 .ind_for_friend{
-  width: 120px;
+  width: 50px;
   float: left;
   margin-left: 15px;
   margin-top: 10px;
 }
 .ind_img_friend img{
   width: 100%;
-  height: 120px;
+  height: 50px;
 }
 
 .ind_block_for_friend{
@@ -207,15 +214,18 @@ ind_  color: #0f3c6b;
 }
 
 #user_friend {
-  width: 49%;
   color:#0f3c6b;
   float: left;
 }
 
+.ind_name_friend {
+  text-align: center;
+}
+
 #user_notice {
-  width: 49%;
   color:#0f3c6b;
   float: left;
+  width: 754px;
 }
 
 #user_notice h2{
@@ -237,8 +247,25 @@ ind_  color: #0f3c6b;
   overflow-Y: scroll;
   height: 550px;
   padding: 10px;
+  width: 600px;
+  margin-left: 20px;
+}
+#field_msg_q{
+  width: 760px;
+  height: 60px;
+  float: left;
 }
 
+#send_btn{
+  float: right;;
+  width: 140px;
+  height: 50px;
+  background-color: #0f3c6b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 5px;
+}
 .clear{
   clear: both;
 }
@@ -297,6 +324,7 @@ ind_  color: #0f3c6b;
 .last_msg{
   width: 79%;
   float: left;
+  margin-top: 20px;
 }
 
 .date_last_msg{
@@ -315,7 +343,7 @@ ind_  color: #0f3c6b;
 color: #595a69;
 font-weight: 600;
 text-decoration: darkred;
-font-size: 14px;
+font-size: 12px;
 }
 #user_friend h2 a{
   text-decoration: none;
@@ -326,4 +354,101 @@ font-size: 14px;
   font-size: 20px;
   color: #4c6bab;
   font-weight: 600;
+}
+
+.wallpost_avatar_from{
+  width: 50px;
+  float: left;
+  margin-right: 20px;
+}
+
+.wallpost_avatar_from img{
+  width: 100%;
+  height: 50px;
+}
+
+.wallpost_body iframe{
+  width: 100%;
+}
+.wallpost_body img{
+  max-width: 100%;
+}
+#post_body{
+  width: 97%;
+  height: 50px;
+}
+#post_submit{
+  float: right;
+}
+#mceu_3{
+  margin-left: 20px !important;
+}
+.block_text_iam img{
+  max-width: 30% !important;
+  height: auto !important;
+}
+.block_msg_to_me img{
+  max-width: 30% !important;
+  height: auto !important;
+}
+#mceu_9{
+  display: none;
+}
+
+#right_side_mess{
+  margin-left: 35px;
+  float: left;
+  margin-top: 25px;
+}
+
+.mce-panel{
+  background-color: #0f3c6b !important;
+}
+
+#page_body{
+  float: right;
+  margin-top: 30px;
+  width: 760px;
+}
+
+.block_text_iam iframe{
+  width: 100%;
+}
+.block_text_to_me iframe{
+  width: 100%;
+}
+
+.wallpost_date{
+  font-size: 12px;
+  color: grey;
+  margin-top: 0px;
+}
+.wallpost_from{
+  margin-bottom: 5px;
+}
+
+.wallpost{
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+.wallpost textarea{
+  width: 446px;
+}
+
+.wall_coments{
+  float: right;
+  font-size: 12px;
+}
+.block_like{
+  float: left;
+  width: 50%;
+  font-size: 12px;
+  color: #0f3c6b;
+  cursor: pointer;
+}
+.count_like_spn{
+  font-weight: bold !important;
+}
+.coment_area{
+  display: none;
 }

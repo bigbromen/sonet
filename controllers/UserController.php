@@ -1,8 +1,8 @@
 <?php
   include_once ROOT.'/models/User.php';
-
+  include_once ROOT.'/models/Wallpost.php';
   class UserController{
-    
+
     public function Registration(){
       if(User::check_logged() != false){
         header('Location: /profile/'.User::check_logged()['id']);
@@ -92,7 +92,7 @@
       else{
         $is_my_friend = false;
       }
-      $notices = User::get_notice($params[0]);
+      $wallposts = Wallpost::get_wallpost($params[0]);
       require_once ROOT.'/views/profile/index.php';
       return true;
     }
@@ -143,5 +143,13 @@
       if(isset($id)){
         header("Location:/profile/$id");
       }
+      return true;
     }
+    public function show_notices(){
+      $user = User::check_logged();
+      $notices = User::get_notice();
+      require_once ROOT.'/views/profile/notice.php';
+      return true;
+    }
+
   }

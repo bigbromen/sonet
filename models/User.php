@@ -192,6 +192,30 @@
       return true;
     }
 
+    public static function add_notice_wallpost($id_fr){
+      //Сделать еще проверку существует ли такой id пользователя
+      $hashCookie = $_COOKIE['hash'];
+      $EmailCookie = $_COOKIE['email'];
+      $db = Db::getConnection();
+      $db->query("SET NAMES 'utf8'");
+      $res_query = $db->query("SELECT * FROM users WHERE id='$id_fr'");
+      $res = $db->query("SELECT * FROM users WHERE hash='$hashCookie' and email='$EmailCookie'");
+      $user_arr = $res->fetch_array(MYSQLI_ASSOC);
+      if($res_query->num_rows == 1){
+          $friends_arr = $res_query->fetch_array(MYSQLI_ASSOC);
+          $unser_frends_notes = unserialize($friends_arr['notice']);
+          $notice = array(
+              'from'=>$user_arr['firstname'].' '.$user_arr['secondname'],
+              'id'=> $user_arr['id'],
+              'date'=> date("Y-m-d H:i:s"),
+              'text'=>' добавил запись к Вам на стену '
+            );
+          array_push($unser_frends_notes, $notice);
+          $ser_frends_notes = serialize($unser_frends_notes);
+          $db->query("UPDATE users SET notice='$ser_frends_notes' WHERE id='$id_fr'");
+      }
+      return true;
+    }
     public static function show_friends($id){
       $db = Db::getConnection();
       $db->query("SET NAMES 'utf8'");
@@ -229,10 +253,12 @@
       }
     }
 
-    public static function get_notice($id){
+    public static function get_notice(){
+      $hashCookie = $_COOKIE['hash'];
+      $EmailCookie = $_COOKIE['email'];
       $db = Db::getConnection();
       $db->query("SET NAMES 'utf8'");
-      $result = $db->query("SELECT * FROM users WHERE id='$id'");
+      $result = $db->query("SELECT * FROM users WHERE hash='$hashCookie' and email='$EmailCookie'");
       $user_arr = $result->fetch_array(MYSQLI_ASSOC);
       $notice = unserialize($user_arr['notice']);
 
