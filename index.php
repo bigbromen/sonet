@@ -9,6 +9,9 @@
   define('ROOT', dirname(__FILE__));
   require_once(ROOT.'/components/Router.php');
   require_once(ROOT.'/components/Db.php');
+  spl_autoload_register(function ($class_name) {
+    include 'models/' . $class_name . '.php';
+});
 
   //3. Вызов Router
   $router = new Router();

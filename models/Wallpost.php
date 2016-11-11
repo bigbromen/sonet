@@ -36,28 +36,34 @@
     }
 
     public static function add_like($from, $id){
-      $db = Db::getConnection();
-      $db->query("SET NAMES 'utf8'");
-      $res = $db->query("SELECT like_from FROM wallpost WHERE id='$id'");
-      $like_from = $res->fetch_array(MYSQLI_ASSOC);
-      $unser_like_from = unserialize($like_from['like_from']);
-      if(!in_array($from, $unser_like_from)){
-        $db->query("UPDATE wallpost SET count_like = count_like+1, like_from='$from' WHERE id=$id");
-        array_push($unser_like_from, $from);
-        $ser_like_from = serialize($unser_like_from);
-        $db->query("UPDATE wallpost SET like_from='$ser_like_from' WHERE id=$id");
-      }else{
-        $db->query("UPDATE wallpost SET count_like=count_like-1, like_from='$from' WHERE id=$id");
-        $unser_like_from = array_flip($unser_like_from);
-        unset ($unser_like_from[$from]);
-        $unser_like_from = array_flip($unser_like_from);
-        $ser_like_from = serialize($unser_like_from);
-        $db->query("UPDATE wallpost SET like_from='$ser_like_from' WHERE id=$id");
-      }
+      if(!empty($from) and !empty($id)){
+        $db = Db::getConnection();
+        $db->query("SET NAMES 'utf8'");
+        $res = $db->query("SELECT like_from FROM wallpost WHERE id='$id'");
+        $like_from = $res->fetch_array(MYSQLI_ASSOC);
+        $unser_like_from = unserialize($like_from['like_from']);
+        if(!in_array($from, $unser_like_from)){
+          array_push($unser_like_from, $from);
+          $ser_like_from = serialize($unser_like_from);
+          $db->query("UPDATE wallpost SET like_from='$ser_like_from' WHERE id=$id");
+          if($db->affected_rows>0){
+            $db->query("UPDATE wallpost SET count_like = count_like+1 WHERE id=$id");
+          }
+        }else{
+          $unser_like_from = array_flip($unser_like_from);
+          unset ($unser_like_from[$from]);
+          $unser_like_from = array_flip($unser_like_from);
+          $ser_like_from = serialize($unser_like_from);
+          $db->query("UPDATE wallpost SET like_from='$ser_like_from' WHERE id=$id");
+          if($db->affected_rows>0){
+            $db->query("UPDATE wallpost SET count_like=count_like-1 WHERE id=$id");
+          }
+        }
 
-      $result = $db->query("SELECT count_like FRoM wallpost WHERE id='$id'");
-      $like = $result->fetch_array(MYSQLI_ASSOC);
-      return $like ;
+        $result = $db->query("SELECT count_like FRoM wallpost WHERE id='$id'");
+        $like = $result->fetch_array(MYSQLI_ASSOC);
+        return $like ;
+      }
     }
 
   }

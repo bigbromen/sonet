@@ -9,6 +9,7 @@ header{
   height: 50px;
   display: inline-block;
   position: fixed;
+  top: 0;
 }
 
 #block_1{
@@ -430,6 +431,9 @@ font-size: 12px;
 .wallpost{
   font-size: 13px;
   margin-bottom: 30px;
+  background-color: #eef0f9;
+  border: 1px solid #aa9d8c;
+  padding: 5px;
 }
 .wallpost textarea{
   width: 446px;
@@ -438,6 +442,9 @@ font-size: 12px;
 .wall_coments{
   float: right;
   font-size: 12px;
+  margin-top: 15px;
+  color: #0f3c6b;
+  cursor: pointer;
 }
 .block_like{
   float: left;
@@ -445,10 +452,83 @@ font-size: 12px;
   font-size: 12px;
   color: #0f3c6b;
   cursor: pointer;
+  margin-top: 15px;
 }
 .count_like_spn{
   font-weight: bold !important;
 }
 .coment_area{
   display: none;
+}
+.block_comment{
+  width: 90%;
+  margin-left: 8%;
+}
+.comment_ava{
+  width: 40px;
+  float: left;
+}
+.comment_ava img{
+  width: 100%;
+}
+.comment_from{
+  float: left;
+}
+.comment_date{
+  font-size: 11px;
+  margin-left: 50px;
+  margin-top: -10px;
+}
+.btn_show_btn{
+  text-align: center;
+  padding: 5px;
+  background-color: #567ca4;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+hr{
+  border-color: floralwhite;
+}
+
+#form_block_sign {
+    margin-top: 10px;
+    width: 300px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 50px;
+}
+
+#form_block_sign form .submit_field {
+    margin-left: 75px;
+    margin-top: 20px;
+    height: 50px;
+    width: 255px;
+    background-color: #567ca4;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
+#form_block_sign form .input_field {
+    width: 485px;
+    height: 30px;
+    color: grey;
+}
+
+#block_sign h2 {
+    color: #567ca4;
+    margin-top: 35px;
+    width: 90%;
+}
+
+#block__sign img {
+    width: 80%;
+    margin-left: 10%;
+}
+#block_sign {
+    width: 460px;
+    float: left;
+    margin-top: 50px;
 }

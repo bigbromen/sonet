@@ -81,6 +81,8 @@
         $db = Db::getConnection();
         $db->query("SET NAMES 'utf8'");
         $result = $db->query("SELECT * FROM users WHERE hash='$hashCookie' and email='$hashEmail'");
+        $db->query("UPDATE users SET last_activity=now(), status= TRUE WHERE hash='$hashCookie' and email='$hashEmail'");
+
         $user_profile = $result->fetch_array(MYSQLI_ASSOC);
         return $user_profile;
       }
@@ -222,6 +224,7 @@
       $result = $db->query("SELECT * FROM users WHERE id='$id'");
       $user_arr = $result->fetch_array(MYSQLI_ASSOC);
       $friends = unserialize($user_arr['friends']);
+    
       $arrayFrends = array();
       foreach ($friends as $friend) {
         $res = $db->query("SELECT * FROM users WHERE id='$friend'");
@@ -230,7 +233,8 @@
           'id'=>$res_arr['id'],
           'firstname'=>$res_arr['firstname'],
           'secondname'=>$res_arr['secondname'],
-          'avatar'=>$res_arr['avatar']
+          'avatar'=>$res_arr['avatar'],
+          'status'=>$res_arr['status']
         );
         array_push($arrayFrends,$arrayFrend);
       }

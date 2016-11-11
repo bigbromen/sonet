@@ -1,8 +1,11 @@
 <?php
   return array(
     "ajax_load_msg"=>"message/ajax_load_msg",
-    "send_post"=>"wallpost/send_post/$1 ",
-    "send_like"=>"wallpost/send_like/$1 ",
+    "send_post"=>"wallpost/send_post/$1",
+    "send_comment"=>"comment/send_comment/",
+    "show_comment"=>"comment/show_comment/",
+    "send_like_comment"=>"comment/send_like_comment/",
+    "send_like"=>"wallpost/send_like/",
     "ajax_send_msg"=>"message/ajax_send_msg",
     "messages"=>"message/Show_messages",
     "/message/([0-9]+)"=>"/message/index/$1",

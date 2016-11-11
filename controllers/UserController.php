@@ -1,6 +1,4 @@
 <?php
-  include_once ROOT.'/models/User.php';
-  include_once ROOT.'/models/Wallpost.php';
   class UserController{
 
     public function Registration(){

@@ -9,11 +9,12 @@
     <header>
       <h1 style="margin-top: 0px;">SoNet</h1>
     </header>
-    <div id="block_1">
-      <h2>Будьте в сети и общайтесь с друзьями с любого устройства</h2>
+    <div class="clear"></div>
+    <div id="block_sign">
+      <!--<h2>Будьте в сети и общайтесь с друзьями с любого устройства</h2>-->
       <img src="/temp/img/preview.png">
     </div>
-    <div id="form_block">
+    <div id="form_block_sign">
       <h1>Регистрация <BR>в Sonet</h1>
       <form action="" method="post">
         <input class="input_field" type="text" name="email" placeholder="Е-mail" value="<?php echo $email;?>"><br>

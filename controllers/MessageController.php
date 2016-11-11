@@ -1,6 +1,4 @@
 <?php
-  include_once ROOT.'/models/Message.php';
-  include_once ROOT.'/models/User.php';
   class MessageController{
 
     public function Ajax_load_msg(){
@@ -16,7 +14,7 @@
         $messages = Message::getMessages($iam ,$id_to);
         if(count($messages) != $count){
           $result = array(
-            'msg'=> $messages[count($messages)+(count($messages)-($count))-2],
+            'msg'=> end($messages),
             'count'=> count($messages)
           );
           json_encode($result);

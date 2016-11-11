@@ -1,5 +1,6 @@
 <?php include_once ROOT.'/views/layout/html_head.php';?>
 <?php include_once ROOT.'/views/layout/header.php';?>
+<script src='/temp/js/function_profile_index.js'></script>
     <div id="profile_menu">
       <?php include_once ROOT.'/views/layout/profile_menu.php';?>
     </div>
@@ -22,8 +23,11 @@
 
           <h2><a href="/friends/<?php echo $single_user_info['id'];?>">Друзья</a></h2>
           <?php if(!empty($user_friends)):?>
-            <?php $i=0;?>
-            <?php foreach ($user_friends as $user_friend):?>
+            <?php $i=0;
+            ?>
+            <?php
+            shuffle($user_friends);
+            foreach ($user_friends as $user_friend):?>
                 <div class="ind_for_friend">
                   <div class="ind_img_friend">
                     <img src="<?php echo $user_friend['avatar']; ?>">
@@ -41,6 +45,30 @@
           <?php else:?>
           <h2>Нет друзей</h2>
           <?php endif; ?>
+          <div class='clear'></div>
+          <br><h2><a href="/friends/<?php echo $single_user_info['id'];?>">Онлайн</a></h2>
+          <?php if(!empty($user_friends)):?>
+            <?php $i=0;
+            ?>
+            <?php
+             foreach ($user_friends as $user_friend):?>
+                <?php if($user_friend['status'] == 1):?>
+                <div class="ind_for_friend">
+                  <div class="ind_img_friend">
+                    <img src="<?php echo $user_friend['avatar']; ?>">
+                  </div>
+                  <div class="ind_name_friend">
+                    <a href="/profile/<?php echo $user_friend['id'];?>">
+                      <?php echo  $user_friend['firstname'].' '; ?>
+                    </a>
+                  </div>
+                </div>
+              <?php endif;?>
+
+            <?php endforeach;?>
+          <?php else:?>
+          <?php endif; ?>
+
         </div>
       </div>
       <div id="right_side">
@@ -65,7 +93,6 @@
         </div>
         <hr>
         <div id="wall">
-          <?php echo exec('whoami'); ?>
           <h2>Записи</h2>
           <form enctype="multipart/form-data" method="POST" action="/send_post/?id_to=<?php echo $single_user_info['id'];?>">
             <input id="post_body" type="text" name="post_body">
@@ -94,13 +121,17 @@
                       Коментировать
                     </div>
                     <div class='clear'></div>
+                      <div class="btn_show_btn" onclick="show_comment(<?php echo $wallpost['id'];?>)">Показать комментарии</div>
+                      <div class="block_comment post_comment_<?php echo $wallpost['id'];?>">
+
+                      </div>
+                      <div class='clear'></div>
                     <div class="coment_area owner_post_<?php echo $wallpost['id'];?>">
                       <form>
-                        <textarea class="textarea_coment_<?php echo $wallpost['id'];?>"></textarea>
-                        <input type="submit" value="Отправить">
+                        <textarea class="textarea_comment_<?php echo $wallpost['id'];?>"></textarea>
+                        <input type="button" value="Отправить" onclick="send_comment(<?php echo $wallpost['id'];?>)">
                       </form>
                     </div>
-                  <hr>
                 </div>
                 <?php endforeach; ?>
               <?php else:?>
@@ -112,30 +143,3 @@
     </div>
     <div class='clear'></div>
 <?php include_once ROOT.'/views/layout/footer.php';?>
-<script>
-  var flag = true;
-  function show_textarea(id){
-    if(flag){
-      $(".owner_post_" + id).show("fast", function(){
-          $(".textarea_coment_" + id).focus();
-      });
-      flag = false;
-    }else{
-      $(".owner_post_" + id).hide();
-      flag = true;
-    }
-
-  }
-  function send_like(id){
-    $.ajax({
-      url: '/send_like/',
-      type: 'POST',
-      data: {
-        id_post: id
-      },
-      success: function(data){
-        $(".count_like_" + id).html(data);
-      }
-    });
-  }
-</script>

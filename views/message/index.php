@@ -55,7 +55,7 @@ tinymce.init({
           <p>Нет сообщений</p>
         <?php endif;?>
           <textarea id="field_msg_q"></textarea>
-          <input id="send_btn" type="button" value="Отправить" onclick="ajax_send_msg_tm();">
+          <input id="send_btn" type="button" value="Отправить" onclick="ajax_send_msg();">
       </div>
     </div>
     <div class='clear'></div>
@@ -113,7 +113,5 @@ tinymce.init({
       }
     });
   }
-  function ajax_send_msg_tm(){
-    setTimeout(ajax_send_msg,10);
-  }
+
 </script>

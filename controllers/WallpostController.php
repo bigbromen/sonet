@@ -1,7 +1,4 @@
 <?php
-  include_once ROOT.'/models/Message.php';
-  include_once ROOT.'/models/User.php';
-  include_once ROOT.'/models/Wallpost.php';
   class WallpostController{
 
     public function Send_post(){
